@@ -1,0 +1,19 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+const float GROW_RATE = 5.0;
+const float SHRINK_RATE = 1.5;
+
+uniform float start = 0.0;
+uniform float end = 1.0;
+
+void fragment(){
+	float opacity = clamp((UV.x-start)*GROW_RATE, 0.0, 1.0)*clamp((end-UV.x)*SHRINK_RATE, 0.0, 1.0);
+	vec4 spray = texture(TEXTURE, UV);
+	spray.a *= opacity;
+	COLOR.rgba = spray;
+}
+
+"

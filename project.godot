@@ -1,0 +1,960 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "AIPlayer",
+"language": "GDScript",
+"path": "res://script/ai_player.gd"
+}, {
+"base": "Node",
+"class": "Action",
+"language": "GDScript",
+"path": "res://script/action/action.gd"
+}, {
+"base": "LinPhysChain",
+"class": "Ball",
+"language": "GDScript",
+"path": "res://script/part/ball.gd"
+}, {
+"base": "Sprite",
+"class": "BloodSpray",
+"language": "GDScript",
+"path": "res://script/blood_spray.gd"
+}, {
+"base": "Sprite",
+"class": "Bolt",
+"language": "GDScript",
+"path": "res://script/bolt.gd"
+}, {
+"base": "LinPhysChain",
+"class": "BreastL",
+"language": "GDScript",
+"path": "res://script/part/breastL.gd"
+}, {
+"base": "LinPhysChain",
+"class": "BreastR",
+"language": "GDScript",
+"path": "res://script/part/breastR.gd"
+}, {
+"base": "PhysChain",
+"class": "ClothSegment",
+"language": "GDScript",
+"path": "res://script/part/cloth_segment.gd"
+}, {
+"base": "Node",
+"class": "CommandList",
+"language": "GDScript",
+"path": "res://script/command_list.gd"
+}, {
+"base": "PhysChain",
+"class": "Cum",
+"language": "GDScript",
+"path": "res://script/part/cum.gd"
+}, {
+"base": "Bolt",
+"class": "FBolt",
+"language": "GDScript",
+"path": "res://script/fbolt.gd"
+}, {
+"base": "Action",
+"class": "FBoltRec",
+"language": "GDScript",
+"path": "res://script/action/male/fbolt_rec.gd"
+}, {
+"base": "Action",
+"class": "FCast",
+"language": "GDScript",
+"path": "res://script/action/female/fcast.gd"
+}, {
+"base": "PhysChain",
+"class": "FClothBack1",
+"language": "GDScript",
+"path": "res://script/part/fcloth_back1.gd"
+}, {
+"base": "PhysChain",
+"class": "FClothBack2",
+"language": "GDScript",
+"path": "res://script/part/fcloth_back2.gd"
+}, {
+"base": "PhysChain",
+"class": "FClothFront1",
+"language": "GDScript",
+"path": "res://script/part/fcloth_front1.gd"
+}, {
+"base": "PhysChain",
+"class": "FClothFront2",
+"language": "GDScript",
+"path": "res://script/part/fcloth_front2.gd"
+}, {
+"base": "PhysChain",
+"class": "FClothFront3",
+"language": "GDScript",
+"path": "res://script/part/fcloth_front3.gd"
+}, {
+"base": "Reference",
+"class": "FConst",
+"language": "GDScript",
+"path": "res://script/fconst.gd"
+}, {
+"base": "Action",
+"class": "FDie",
+"language": "GDScript",
+"path": "res://script/action/female/fdie.gd"
+}, {
+"base": "Action",
+"class": "FFallBack",
+"language": "GDScript",
+"path": "res://script/action/female/ffall_back.gd"
+}, {
+"base": "Action",
+"class": "FFallKnees",
+"language": "GDScript",
+"path": "res://script/action/female/ffall_knees.gd"
+}, {
+"base": "Action",
+"class": "FGrabBall",
+"language": "GDScript",
+"path": "res://script/action/female/fgrab_ball.gd"
+}, {
+"base": "Action",
+"class": "FGrabBallRec",
+"language": "GDScript",
+"path": "res://script/action/male/fgrab_ball_rec.gd"
+}, {
+"base": "Action",
+"class": "FGrabCloth",
+"language": "GDScript",
+"path": "res://script/action/female/fgrab_cloth.gd"
+}, {
+"base": "Action",
+"class": "FGrabClothRec",
+"language": "GDScript",
+"path": "res://script/action/male/fgrab_cloth_rec.gd"
+}, {
+"base": "Node2D",
+"class": "FGroin",
+"language": "GDScript",
+"path": "res://script/fgroin.gd"
+}, {
+"base": "Action",
+"class": "FKick",
+"language": "GDScript",
+"path": "res://script/action/female/fkick.gd"
+}, {
+"base": "Action",
+"class": "FKickHighRec",
+"language": "GDScript",
+"path": "res://script/action/male/fkick_high_rec.gd"
+}, {
+"base": "Action",
+"class": "FKickLow",
+"language": "GDScript",
+"path": "res://script/action/female/fkick_low.gd"
+}, {
+"base": "Action",
+"class": "FKickLowRec",
+"language": "GDScript",
+"path": "res://script/action/male/fkick_low_rec.gd"
+}, {
+"base": "Action",
+"class": "FKickRec",
+"language": "GDScript",
+"path": "res://script/action/male/fkick_rec.gd"
+}, {
+"base": "Node",
+"class": "FKickSkeleton",
+"language": "GDScript",
+"path": "res://script/fkick_skeleton.gd"
+}, {
+"base": "Action",
+"class": "FLose1",
+"language": "GDScript",
+"path": "res://script/action/female/flose1.gd"
+}, {
+"base": "Action",
+"class": "FPull",
+"language": "GDScript",
+"path": "res://script/action/female/fpull.gd"
+}, {
+"base": "Action",
+"class": "FPunchBalls",
+"language": "GDScript",
+"path": "res://script/action/female/fpunch_balls.gd"
+}, {
+"base": "Action",
+"class": "FRecoil",
+"language": "GDScript",
+"path": "res://script/action/female/frecoil.gd"
+}, {
+"base": "Action",
+"class": "FSlash",
+"language": "GDScript",
+"path": "res://script/action/female/fslash.gd"
+}, {
+"base": "Action",
+"class": "FSlashRec",
+"language": "GDScript",
+"path": "res://script/action/male/fslash_rec.gd"
+}, {
+"base": "Action",
+"class": "FStab",
+"language": "GDScript",
+"path": "res://script/action/female/fstab.gd"
+}, {
+"base": "Action",
+"class": "FStabBalls",
+"language": "GDScript",
+"path": "res://script/action/female/fstab_balls.gd"
+}, {
+"base": "Action",
+"class": "FStabRec",
+"language": "GDScript",
+"path": "res://script/action/male/fstab_rec.gd"
+}, {
+"base": "Action",
+"class": "FTwist",
+"language": "GDScript",
+"path": "res://script/action/female/ftwist.gd"
+}, {
+"base": "Action",
+"class": "FUnstabBalls",
+"language": "GDScript",
+"path": "res://script/action/female/funstab_balls.gd"
+}, {
+"base": "Action",
+"class": "FUnstabBallsRec",
+"language": "GDScript",
+"path": "res://script/action/male/funstab_balls_rec.gd"
+}, {
+"base": "Action",
+"class": "FWin",
+"language": "GDScript",
+"path": "res://script/action/female/fwin.gd"
+}, {
+"base": "Action",
+"class": "FWinApproach",
+"language": "GDScript",
+"path": "res://script/action/female/fwin_approach.gd"
+}, {
+"base": "Action",
+"class": "FWinCutHard",
+"language": "GDScript",
+"path": "res://script/action/female/fwin_cut_hard.gd"
+}, {
+"base": "Action",
+"class": "FWinCutSoft",
+"language": "GDScript",
+"path": "res://script/action/female/fwin_cut_soft.gd"
+}, {
+"base": "Action",
+"class": "FWinGrab",
+"language": "GDScript",
+"path": "res://script/action/female/fwin_grab.gd"
+}, {
+"base": "Action",
+"class": "FWinStroke",
+"language": "GDScript",
+"path": "res://script/action/female/fwin_stroke.gd"
+}, {
+"base": "Bone2D",
+"class": "Face",
+"language": "GDScript",
+"path": "res://script/face.gd"
+}, {
+"base": "Human",
+"class": "Female",
+"language": "GDScript",
+"path": "res://script/female.gd"
+}, {
+"base": "AIPlayer",
+"class": "FemaleAIPlayer",
+"language": "GDScript",
+"path": "res://script/female_ai_player.gd"
+}, {
+"base": "CommandList",
+"class": "FemaleCommandList",
+"language": "GDScript",
+"path": "res://script/female_command_list.gd"
+}, {
+"base": "Face",
+"class": "FemaleFace",
+"language": "GDScript",
+"path": "res://script/female_face.gd"
+}, {
+"base": "InputController",
+"class": "FemaleInputController",
+"language": "GDScript",
+"path": "res://script/female_input_controller.gd"
+}, {
+"base": "HumanSkeleton",
+"class": "FemaleSkeleton",
+"language": "GDScript",
+"path": "res://script/female_skeleton.gd"
+}, {
+"base": "Skeleton2D",
+"class": "FemaleWinSkeleton",
+"language": "GDScript",
+"path": "res://script/female_win_skeleton.gd"
+}, {
+"base": "Node",
+"class": "Game",
+"language": "GDScript",
+"path": "res://script/game.gd"
+}, {
+"base": "Sprite",
+"class": "GlowEffect",
+"language": "GDScript",
+"path": "res://script/glow_effect.gd"
+}, {
+"base": "Node2D",
+"class": "Groin",
+"language": "GDScript",
+"path": "res://script/groin.gd"
+}, {
+"base": "Node",
+"class": "Gui",
+"language": "GDScript",
+"path": "res://script/gui.gd"
+}, {
+"base": "PhysChain",
+"class": "HairBack1",
+"language": "GDScript",
+"path": "res://script/part/hair_back1.gd"
+}, {
+"base": "PhysChain",
+"class": "HairBack2",
+"language": "GDScript",
+"path": "res://script/part/hair_back2.gd"
+}, {
+"base": "PhysChain",
+"class": "HairFront",
+"language": "GDScript",
+"path": "res://script/part/hair_front.gd"
+}, {
+"base": "Node2D",
+"class": "Head",
+"language": "GDScript",
+"path": "res://script/part/head.gd"
+}, {
+"base": "Node2D",
+"class": "Human",
+"language": "GDScript",
+"path": "res://script/human.gd"
+}, {
+"base": "Skeleton2D",
+"class": "HumanSkeleton",
+"language": "GDScript",
+"path": "res://script/human_skeleton.gd"
+}, {
+"base": "Node",
+"class": "InputController",
+"language": "GDScript",
+"path": "res://script/input_controller.gd"
+}, {
+"base": "SeveredPart",
+"class": "Knife",
+"language": "GDScript",
+"path": "res://script/part/knife.gd"
+}, {
+"base": "PhysChain",
+"class": "LinPhysChain",
+"language": "GDScript",
+"path": "res://script/lin_phys_chain.gd"
+}, {
+"base": "Action",
+"class": "MBlock",
+"language": "GDScript",
+"path": "res://script/action/male/mblock.gd"
+}, {
+"base": "PhysChain",
+"class": "MClothBack1",
+"language": "GDScript",
+"path": "res://script/part/mcloth_back1.gd"
+}, {
+"base": "PhysChain",
+"class": "MClothBack2",
+"language": "GDScript",
+"path": "res://script/part/mcloth_back2.gd"
+}, {
+"base": "PhysChain",
+"class": "MClothFront1",
+"language": "GDScript",
+"path": "res://script/part/mcloth_front1.gd"
+}, {
+"base": "PhysChain",
+"class": "MClothFront2",
+"language": "GDScript",
+"path": "res://script/part/mcloth_front2.gd"
+}, {
+"base": "PhysChain",
+"class": "MClothFront3",
+"language": "GDScript",
+"path": "res://script/part/mcloth_front3.gd"
+}, {
+"base": "Reference",
+"class": "MConst",
+"language": "GDScript",
+"path": "res://script/mconst.gd"
+}, {
+"base": "Action",
+"class": "MFallBack",
+"language": "GDScript",
+"path": "res://script/action/male/mfall_back.gd"
+}, {
+"base": "Action",
+"class": "MGrabArmR",
+"language": "GDScript",
+"path": "res://script/action/male/mgrab_armr.gd"
+}, {
+"base": "Action",
+"class": "MGrabArmRRec",
+"language": "GDScript",
+"path": "res://script/action/female/mgrab_armr_rec.gd"
+}, {
+"base": "Action",
+"class": "MGrabArms",
+"language": "GDScript",
+"path": "res://script/action/male/mgrab_arms.gd"
+}, {
+"base": "Action",
+"class": "MGrabArmsPen",
+"language": "GDScript",
+"path": "res://script/action/male/mgrab_arms_pen.gd"
+}, {
+"base": "Action",
+"class": "MGrabArmsRec",
+"language": "GDScript",
+"path": "res://script/action/female/mgrab_arms_rec.gd"
+}, {
+"base": "Action",
+"class": "MGrabCloth",
+"language": "GDScript",
+"path": "res://script/action/male/mgrab_cloth.gd"
+}, {
+"base": "Action",
+"class": "MGrabClothRec",
+"language": "GDScript",
+"path": "res://script/action/female/mgrab_cloth_rec.gd"
+}, {
+"base": "Action",
+"class": "MGrabTop",
+"language": "GDScript",
+"path": "res://script/action/male/mgrab_top.gd"
+}, {
+"base": "Action",
+"class": "MGrabTopRec",
+"language": "GDScript",
+"path": "res://script/action/female/mgrab_top_rec.gd"
+}, {
+"base": "Action",
+"class": "MLose",
+"language": "GDScript",
+"path": "res://script/action/male/mlose.gd"
+}, {
+"base": "Action",
+"class": "MPunch",
+"language": "GDScript",
+"path": "res://script/action/male/mpunch.gd"
+}, {
+"base": "Action",
+"class": "MPushBack",
+"language": "GDScript",
+"path": "res://script/action/male/mpush_back.gd"
+}, {
+"base": "Action",
+"class": "MPushBackApproach",
+"language": "GDScript",
+"path": "res://script/action/male/mpush_back_approach.gd"
+}, {
+"base": "Action",
+"class": "MRecoil1",
+"language": "GDScript",
+"path": "res://script/action/male/mrecoil1.gd"
+}, {
+"base": "Action",
+"class": "MRecoil2",
+"language": "GDScript",
+"path": "res://script/action/male/mrecoil2.gd"
+}, {
+"base": "Action",
+"class": "MStrip",
+"language": "GDScript",
+"path": "res://script/action/male/mstrip.gd"
+}, {
+"base": "Action",
+"class": "MWin1",
+"language": "GDScript",
+"path": "res://script/action/male/mwin1.gd"
+}, {
+"base": "Action",
+"class": "MWin2",
+"language": "GDScript",
+"path": "res://script/action/male/mwin2.gd"
+}, {
+"base": "Human",
+"class": "Male",
+"language": "GDScript",
+"path": "res://script/male.gd"
+}, {
+"base": "AIPlayer",
+"class": "MaleAIPlayer",
+"language": "GDScript",
+"path": "res://script/male_ai_player.gd"
+}, {
+"base": "CommandList",
+"class": "MaleCommandList",
+"language": "GDScript",
+"path": "res://script/male_command_list.gd"
+}, {
+"base": "Face",
+"class": "MaleFace",
+"language": "GDScript",
+"path": "res://script/male_face.gd"
+}, {
+"base": "InputController",
+"class": "MaleInputController",
+"language": "GDScript",
+"path": "res://script/male_input_controller.gd"
+}, {
+"base": "HumanSkeleton",
+"class": "MaleSkeleton",
+"language": "GDScript",
+"path": "res://script/male_skeleton.gd"
+}, {
+"base": "Skeleton2D",
+"class": "MaleWinSkeleton",
+"language": "GDScript",
+"path": "res://script/male_win_skeleton.gd"
+}, {
+"base": "Node",
+"class": "Math",
+"language": "GDScript",
+"path": "res://script/math.gd"
+}, {
+"base": "PhysChain",
+"class": "Pen1",
+"language": "GDScript",
+"path": "res://script/part/pen1.gd"
+}, {
+"base": "PhysChain",
+"class": "Pen2",
+"language": "GDScript",
+"path": "res://script/part/pen2.gd"
+}, {
+"base": "PhysChain",
+"class": "PenBack",
+"language": "GDScript",
+"path": "res://script/part/pen_back.gd"
+}, {
+"base": "Node2D",
+"class": "PhysChain",
+"language": "GDScript",
+"path": "res://script/phys_chain.gd"
+}, {
+"base": "Bone2D",
+"class": "SeveredPart",
+"language": "GDScript",
+"path": "res://script/severed_part.gd"
+}, {
+"base": "Node",
+"class": "Shadow",
+"language": "GDScript",
+"path": "res://script/shadow.gd"
+}, {
+"base": "Node",
+"class": "Sounds",
+"language": "GDScript",
+"path": "res://script/sounds.gd"
+}, {
+"base": "Action",
+"class": "Temp",
+"language": "GDScript",
+"path": "res://script/action/template.gd"
+}, {
+"base": "Bone2D",
+"class": "TornCloth",
+"language": "GDScript",
+"path": "res://script/torn_cloth.gd"
+}, {
+"base": "Node",
+"class": "Utility",
+"language": "GDScript",
+"path": "res://script/utility.gd"
+} ]
+_global_script_class_icons={
+"AIPlayer": "",
+"Action": "",
+"Ball": "",
+"BloodSpray": "",
+"Bolt": "",
+"BreastL": "",
+"BreastR": "",
+"ClothSegment": "",
+"CommandList": "",
+"Cum": "",
+"FBolt": "",
+"FBoltRec": "",
+"FCast": "",
+"FClothBack1": "",
+"FClothBack2": "",
+"FClothFront1": "",
+"FClothFront2": "",
+"FClothFront3": "",
+"FConst": "",
+"FDie": "",
+"FFallBack": "",
+"FFallKnees": "",
+"FGrabBall": "",
+"FGrabBallRec": "",
+"FGrabCloth": "",
+"FGrabClothRec": "",
+"FGroin": "",
+"FKick": "",
+"FKickHighRec": "",
+"FKickLow": "",
+"FKickLowRec": "",
+"FKickRec": "",
+"FKickSkeleton": "",
+"FLose1": "",
+"FPull": "",
+"FPunchBalls": "",
+"FRecoil": "",
+"FSlash": "",
+"FSlashRec": "",
+"FStab": "",
+"FStabBalls": "",
+"FStabRec": "",
+"FTwist": "",
+"FUnstabBalls": "",
+"FUnstabBallsRec": "",
+"FWin": "",
+"FWinApproach": "",
+"FWinCutHard": "",
+"FWinCutSoft": "",
+"FWinGrab": "",
+"FWinStroke": "",
+"Face": "",
+"Female": "",
+"FemaleAIPlayer": "",
+"FemaleCommandList": "",
+"FemaleFace": "",
+"FemaleInputController": "",
+"FemaleSkeleton": "",
+"FemaleWinSkeleton": "",
+"Game": "",
+"GlowEffect": "",
+"Groin": "",
+"Gui": "",
+"HairBack1": "",
+"HairBack2": "",
+"HairFront": "",
+"Head": "",
+"Human": "",
+"HumanSkeleton": "",
+"InputController": "",
+"Knife": "",
+"LinPhysChain": "",
+"MBlock": "",
+"MClothBack1": "",
+"MClothBack2": "",
+"MClothFront1": "",
+"MClothFront2": "",
+"MClothFront3": "",
+"MConst": "",
+"MFallBack": "",
+"MGrabArmR": "",
+"MGrabArmRRec": "",
+"MGrabArms": "",
+"MGrabArmsPen": "",
+"MGrabArmsRec": "",
+"MGrabCloth": "",
+"MGrabClothRec": "",
+"MGrabTop": "",
+"MGrabTopRec": "",
+"MLose": "",
+"MPunch": "",
+"MPushBack": "",
+"MPushBackApproach": "",
+"MRecoil1": "",
+"MRecoil2": "",
+"MStrip": "",
+"MWin1": "",
+"MWin2": "",
+"Male": "",
+"MaleAIPlayer": "",
+"MaleCommandList": "",
+"MaleFace": "",
+"MaleInputController": "",
+"MaleSkeleton": "",
+"MaleWinSkeleton": "",
+"Math": "",
+"Pen1": "",
+"Pen2": "",
+"PenBack": "",
+"PhysChain": "",
+"SeveredPart": "",
+"Shadow": "",
+"Sounds": "",
+"Temp": "",
+"TornCloth": "",
+"Utility": ""
+}
+
+[application]
+
+config/name="bbff"
+run/main_scene="res://scene/menu.tscn"
+config/icon="res://icon.ico"
+
+[autoload]
+
+Options="*res://script/options.gd"
+
+[display]
+
+window/size/width=1792
+window/size/height=1008
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+window/filters/use_fxaa=false
+
+[global]
+
+chars=false
+
+[input]
+
+ui_left={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":14,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_right={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":15,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_up={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":12,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":87,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+ui_down={
+"deadzone": 0.5,
+"events": [ Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":13,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":83,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+I={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":73,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+K={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":75,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+J={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":74,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+L={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":76,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+z={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+x={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+1={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":49,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+2={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":50,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+3={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":51,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+4={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":52,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+5={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":53,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+6={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":54,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+7={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":55,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+up={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+down={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+left={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+right={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+n={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":78,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+m={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":77,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+c={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+o={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":79,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+p={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+v={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":86,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+b={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":66,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+space={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+slow_time={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":45,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+fast_time={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":61,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+,={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":44,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+0={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":48,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+stop={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+hit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777238,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+grab={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777237,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+kick={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+strip={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777351,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+switch={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+block={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777350,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+quit={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777217,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+pause={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":80,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
+ ]
+}
+
+[network]
+
+limits/debugger_stdout/max_chars_per_second=1048576
+
+[rendering]
+
+quality/filters/msaa=1

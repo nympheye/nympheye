@@ -1,0 +1,71 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+const float XPOS = 0.9;
+
+const float FADE_LEN = 0.2;
+const float FADE_SCALE = 1.0/FADE_LEN;
+
+const float LENS_Y_FADE_START = 0.2;
+const float LENS_Y_FADE_SCALE = 1.0/(0.5 - LENS_Y_FADE_START);
+const float LENS_DIST_FADE_REAR_START = 0.50;
+const float LENS_DIST_FADE_REAR_SCALE = 1.0/(XPOS - LENS_DIST_FADE_REAR_START);
+const float LENS_DIST_FADE_FRONT_SCALE = 1.0/0.1;
+const float LENS_STR = 0.6;
+
+uniform bool disabled = false;
+uniform float wavelen = 0.0;
+uniform float wavenum = 0.0;
+uniform float frontFade = 0.0;
+uniform float rearFade = 0.0;
+uniform float lensSlopeFadeScale = 0.0;
+uniform float phase = 0.0;
+
+void fragment(){
+	vec4 bolt = texture(TEXTURE, UV);
+	
+	if (disabled){
+		COLOR.rgba = bolt;
+	}else{
+		
+		float frontMult = 1.0 - clamp((UV.x - 1.0 + frontFade)*FADE_SCALE, 0, 1);
+		float rearMult = clamp((UV.x + FADE_LEN - rearFade)*FADE_SCALE, 0, 1);
+		float fade = frontMult*rearMult;
+		float boltOpacity = bolt.a*fade;
+		float boltTransparency = 1.0 - boltOpacity;
+		
+		bolt.a = boltOpacity;
+		
+		vec2 lensVect = vec2(XPOS - UV.x, UV.y - 0.5);
+		float lensDist = length(lensVect);
+		
+		float lensSlope = abs(lensVect.y/lensVect.x);
+		float lensSlopeFade = 1.0 - min(1.0, lensSlopeFadeScale*lensSlope);
+		
+		float lensYFade = 1.0 - clamp((abs(lensVect.y) - LENS_Y_FADE_START)*LENS_Y_FADE_SCALE, 0, 1);
+		float lensDistFadeFront = clamp(lensVect.x*LENS_DIST_FADE_FRONT_SCALE, 0, 1);
+		float lensDistFadeRear = 1.0 - clamp((lensVect.x - LENS_DIST_FADE_REAR_START)*LENS_DIST_FADE_REAR_SCALE, 0, 1);
+		
+		float fadeCurve = lensSlopeFade*lensYFade*lensDistFadeFront*lensDistFadeRear*fade;
+		fadeCurve = 2.0*fadeCurve - 1.0*fadeCurve*fadeCurve;
+		
+		float wave = sin(lensDist*wavenum - phase);
+		float waveStr = wave;
+		
+		float lensStr = LENS_STR*wavelen*fadeCurve;
+		
+		vec2 displacement = (lensStr*waveStr/lensDist)*lensVect;
+		vec4 lensCol = texture(SCREEN_TEXTURE, SCREEN_UV + displacement);
+		
+		vec4 col = texture(SCREEN_TEXTURE, SCREEN_UV);
+		float bgOpacity = 1.0 - fadeCurve - boltOpacity;
+		col.r = bgOpacity*col.r + fadeCurve*lensCol.r + boltOpacity*bolt.r;
+		col.g = bgOpacity*col.g + fadeCurve*lensCol.g + boltOpacity*bolt.g;
+		col.b = bgOpacity*col.b + fadeCurve*lensCol.b + boltOpacity*bolt.b;
+		COLOR.rgba = col;
+	}
+}
+
+"

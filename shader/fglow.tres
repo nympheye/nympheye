@@ -1,0 +1,42 @@
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type canvas_item;
+
+uniform bool disabled = false;
+uniform float ringWidth2 = 50.0;
+uniform float ringWidth4 = 5000.0;
+uniform float ringOffset = 0.0;
+uniform float ringRadius = 0.2;
+uniform float lensStrength = 0.02;
+
+void fragment(){
+	
+	if (disabled){
+		COLOR.rgba = vec4(0.0, 0.0, 0.0, 0.0);
+	}else{
+		vec2 v = vec2(UV.x - 0.5, UV.y - 0.5);
+		float r = length(v);
+		
+		float d = r - ringRadius;
+		float d2 = d*d;
+		float d4 = d2*d2;
+		
+		float ringStr = 1.0/(1.0 + ringWidth2*d2 + ringWidth4*d4) - ringOffset;
+		
+		float opacity = sqrt(ringStr);
+		
+		float lensStr = lensStrength*ringStr*sqrt(r);
+		
+		vec2 displacement = (lensStr/r)*v;
+		vec4 lensCol = texture(SCREEN_TEXTURE, SCREEN_UV + displacement);
+		
+		vec4 col = texture(SCREEN_TEXTURE, SCREEN_UV);
+		col.r = (1.0-opacity)*col.r + opacity*lensCol.r;
+		col.g = (1.0-opacity)*col.g + opacity*lensCol.g;
+		col.b = (1.0-opacity)*col.b + opacity*lensCol.b;
+		COLOR.rgba = col;
+	}
+}
+
+"
