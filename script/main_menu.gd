@@ -41,8 +41,9 @@ func _ready():
 	
 	var fweaponOption = optionBox.get_node("FWeapon/FemaleWeapon")
 	fweaponOption.add_item("Knife", FConst.WEAPON_KNIFE)
-	fweaponOption.add_item("Energy Bolt", FConst.WEAPON_KNIFE)
+	fweaponOption.add_item("Energy Bolt", FConst.WEAPON_CAST)
 	fweaponOption.add_item("None", FConst.WEAPON_NONE)
+	fweaponOption.add_item("Random", FConst.WEAPON_RANDOM)
 	fweaponOption.select(options.fweapon)
 	
 	updateFiltered()

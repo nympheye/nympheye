@@ -38,14 +38,15 @@ var crySounds : Sounds
 var dieSounds : Sounds
 var gruntSounds : Sounds
 
-var knifePoly
-var knife2Poly
-var knife2BloodPoly
-var tearPoly
+var knifePoly : Polygon2D
+var knife2Poly : Polygon2D
+var knife2BloodPoly : Polygon2D
+var tearPoly : Polygon2D
 var wrapPolys
 var topPolys
 var bottomPolys
 var hairPolys
+var irisPoly : Polygon2D
 
 var punchTimer
 var isPunchedFace
@@ -107,7 +108,10 @@ func _init().(true):
 func _ready():
 	regenRateMult = options.fregenRateMult
 	opponent = game.get_node("Male")
+	
 	weapon = options.fweapon
+	if weapon == FConst.WEAPON_RANDOM:
+		weapon = randi()%FConst.WEAPON_RANDOM
 	
 	bolt = game.get_node("FBolt")
 	bolt.human = self
@@ -123,6 +127,7 @@ func _ready():
 	knifePoly = poly.get_node("ArmR/Knife")
 	knife2Poly = poly.get_node("ArmR/Knife2")
 	knife2BloodPoly = poly.get_node("ArmR/Knife2_blood")
+	irisPoly = poly.get_node("Head/Iris")
 	
 	tear = skeleton.head.get_node("Tear")
 	tearPoly = get_node("polygons/Head/Tear")
@@ -244,6 +249,12 @@ func _ready():
 		var origAlpha = p.color.a
 		p.color = skinColor
 		p.color.a = origAlpha
+	
+	var eyeColor = Color.from_hsv(options.feyeColor[0], options.feyeColor[1], options.feyeColor[2])
+	irisPoly.color = eyeColor
+	get_node("polygons_win/Head/IrisL").color = eyeColor
+	get_node("polygons_win/Head/IrisR").color = eyeColor
+	get_node("polygons_turn/Iris").color = eyeColor
 	
 
 
@@ -404,9 +415,11 @@ func processPunch(delta):
 
 
 func recDamage(amt):
+	amt *= options.fphysicalDamageMult
 	damage += amt
 
 func recMoraleDamage(amt):
+	amt *= options.fmoraleDamageMult
 	moraleDamage += amt
 	opponent.deliverMoraleDamage(amt)
 

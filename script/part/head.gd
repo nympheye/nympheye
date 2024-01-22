@@ -26,7 +26,7 @@ func sever():
 		var bone = get_node("Skeleton2D/Head")
 		position = Vector2.ZERO
 		bone.position = male.pos + Vector2(0, 20).rotated(male.pen1.get_rotation()) + Vector2(-7, 69)
-		bone.set_scale(male.options.msoftScale*Vector2.ONE)
+		bone.set_scale(male.options.msoftScale*Vector2(1, male.options.mpenWidth))
 		bone.fall(Vector2(-200, -150), -2.0 + 4.0*randf())
 		get_node("polygons/Head").set_visible(true)
 

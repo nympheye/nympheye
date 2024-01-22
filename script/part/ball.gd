@@ -115,7 +115,7 @@ func setRetract(amt):
 
 
 func recDamage(damage):
-	health -= damage
+	health -= male.options.mdamageMult*damage
 	male.recGenitalDamage(damage)
 
 

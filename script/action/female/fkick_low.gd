@@ -139,7 +139,7 @@ func perform(time, delta):
 			var breastAmt2 = breastAmt*breastAmt
 			var breastAmt4 = breastAmt2*breastAmt2
 			breastAmt = (1.5*breastAmt2 - 6.0*breastAmt4)*exp(-8*breastAmt2)
-			turnSkeleton.breast.position = breastAmt/0.04*Vector2(-5, -30)
+			turnSkeleton.setBreastPos(breastAmt/0.04*Vector2(-5, -30))
 
 
 func checkContact():

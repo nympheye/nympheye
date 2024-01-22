@@ -14,6 +14,7 @@ const STAMINA = 0.28
 const REACH = 430
 const SEPARATION = 295
 const SUBACT_STAMINA = [0.2, 0, 0.25, 0]
+const SUBACT_DELAY = 0.3
 
 
 var male
@@ -75,7 +76,7 @@ func perform(time, delta):
 		var reachVectLen = reachVect.length()
 		var outOfReach = reachVectLen > REACH
 		var outOfReachX = abs(reachVect.x) > 0.9*REACH
-		if time > 0.25 && outOfReachX || time > 0.43 && outOfReach:
+		if (time > 0.25 && outOfReachX) || (time > 0.43 && outOfReach) || opponent.isTurn:
 			done = true
 			return
 			
@@ -149,7 +150,9 @@ func perform(time, delta):
 			male.approachTargetPosX(moveRateX*delta, targetPosX)
 			male.pushAway(delta, opponent.pos.x + 250)
 			
-			opponent.approachTargetPosX(1.3*delta, opponentStartPosX)
+			var dposF = opponent.pos.x - opponentStartPosX
+			var moveRateXF = 1.2 + pow(dposF/100, 2)
+			opponent.approachTargetPosX(moveRateXF*delta, opponentStartPosX)
 			
 			male.targetHeight = 40 + opponent.pos.y
 			var dheight = male.pos.y - male.targetHeight
@@ -173,6 +176,8 @@ func perform(time, delta):
 func startSubaction(actType):
 	var stamina = SUBACT_STAMINA[actType]
 	if male.stamina < stamina && stamina > 0:
+		return false
+	if time < SUBACT_DELAY:
 		return false
 	if actType == TEAR:
 		if !opponent.hasBottom || subact >= 0 || time < 0.2:

@@ -73,8 +73,7 @@ func actionStep(delta):
 	var separation = human.opponent.pos.x - human.pos.x
 	var stopTime = human.vel.x/human.getAccel()
 	var stopDist = 1.1*human.vel.x*stopTime/2
-	var opponentVel = 0.9*human.opponent.vel.x
-	stopSeparation = max(InputController.MIN_SEPARATION, abs(separation + stopDist + opponentVel*stopTime))
+	stopSeparation = max(InputController.MIN_SEPARATION, abs(separation + stopDist + predictedOpponentMove(stopTime)))
 	
 	reactionTimer -= delta
 	if reactionTimer <= 0:
@@ -87,7 +86,7 @@ func actionStep(delta):
 		var commandWeight = []
 		var weightSum = 0.0
 		for type in human.commandList.list:
-			var impactSeparation = max(InputController.MIN_SEPARATION, abs(separation + stopDist + opponentVel*impactDelay[type]))
+			var impactSeparation = max(InputController.MIN_SEPARATION, abs(separation + stopDist + predictedOpponentMove(impactDelay[type])))
 			var weight = 0.0
 			if impactSeparation > minRange[type] && impactSeparation < maxRange[type]:
 				if human.commandList.canExecute(type):
@@ -123,7 +122,7 @@ func movementStep(delta):
 	var opponentStamina = min(human.opponent.getMaxStamina(), human.opponent.stamina + human.opponent.staminaRegenRate*max(0, abs(human.opponent.pos.x - human.pos.x) - 500)/human.walkSpeed)
 	retreatAmt = clamp((1.1 if difficulty >= 2 else -0.2)*(opponentStamina - humanStamina) + getRetreatOffset(), -1, 1)
 	
-	if human.opponent.getPhysicalHealth() <= 0:
+	if !human.opponent.isActive:
 		human.targetSpeed = 0
 		return
 	
@@ -171,6 +170,17 @@ func updateDefaultTargetSeparation(delta):
 			defaultTargetSeparation = InputController.MIN_SEPARATION + (200 if randf() < 0.5 else 300)
 		else:
 			defaultTargetSeparation = InputController.MIN_SEPARATION + 800
+
+
+func predictedOpponentMove(time):
+	var vel = human.opponent.vel.x
+	var tgt = human.opponent.targetSpeed
+	var accel = human.opponent.walkAccel*(1 if tgt > vel else -1)
+	var accelTime = min(time, abs((tgt - vel)/accel))
+	var avgVel = vel + 0.5*accelTime*accel
+	if time > accelTime:
+		avgVel = (accelTime*avgVel + (time-accelTime)*tgt)/time
+	return time*avgVel
 
 
 func getRetreatOffset():

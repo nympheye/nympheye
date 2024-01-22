@@ -65,7 +65,7 @@ func start():
 	footStartDeltaPos = [male.footGlobalPos[L]-startPos, male.footGlobalPos[R]-startPos]
 	shadowPoly = male.get_node("polygons/Lay/Shadow")
 	
-	var penScale = male.options.msoftScale*Vector2.ONE
+	var penScale = male.options.msoftScale*Vector2(1, male.options.mpenWidth)
 	male.skeleton.layPen0.set_scale(penScale)
 	male.skeleton.layPen1.set_scale(penScale)
 	

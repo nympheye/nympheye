@@ -45,6 +45,8 @@ func _init():
 
 
 func _ready():
+	var options = get_node("/root/Options")
+	
 	hip = get_node("Hip")
 	leg = [hip.get_node("LegL"), hip.get_node("LegR")]
 	calf = [leg[L].get_node("CalfL"), leg[R].get_node("CalfR")]
@@ -57,6 +59,9 @@ func _ready():
 	forearm = [arm[L].get_node("ForearmL"), arm[R].get_node("ForearmR")]
 	hand = [forearm[L].get_node("HandL"), forearm[R].get_node("HandR")]
 	thumbL = hand[L].get_node("Thumb")
+	
+	var pen = hand[L].get_node("Pen")
+	pen.set_scale(options.msoftScale*Vector2(1, options.mpenWidth))
 	
 	torsoBasePos = torso.transform.origin + Vector2(10, -10)
 	chestBasePos = chest.transform.origin

@@ -39,9 +39,11 @@ func perform(time, delta):
 	
 	var dist = male.pos.x - male.opponent.pos.x
 	var pushDist = max(0, MAX_PUSH_DIST - dist)
+	var pushAmt = min(pushDist/32, 2.0)
 	
-	male.targetSpeed = male.walkSpeed*(1.0 + min(0.2, pushDist/32))
-	male.approachTargetSpeed(delta*(1.0 + min(1.2, pushDist/32))*(1.0 + 5.0*max(0, -male.vel.x/male.walkSpeed)))
+	male.targetSpeed = male.walkSpeed*(1 + min(0.5, pushAmt))
+	male.vel.x += delta*3.0*male.walkAccel*pushAmt*max(0, -male.vel.x/male.walkSpeed)
+	male.approachTargetSpeed(delta*(1 + pushAmt))
 	
 	male.targetAbAng = -0.2
 	male.approachTargetHeight(delta)

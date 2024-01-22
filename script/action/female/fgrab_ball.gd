@@ -185,7 +185,7 @@ func perform(time, delta):
 		female.approachTargetPosX(delta, tgtPosX + bodyShift*BODY_SHIFT)
 		female.pushAway(delta, female.opponent.pos.x - 250)
 	
-	grabPos.x = max(grabPos.x, opponent.pos.x - female.skeleton.handHipOffset[L].x - 90)
+	grabPos.x = max(grabPos.x, opponent.pos.x - female.skeleton.handHipOffset[L].x - 92)
 	female.targetGlobalHandPos[L] = grabPos
 	
 	if !both:
@@ -256,7 +256,9 @@ func stab(delta):
 				opponent.get_node("polygons/Body/StabAb").z_index = 200
 				female.game.cutSounds.playRandom()
 		elif stabTimer <  STAB_START_TIME + STAB_STAB_TIME + STAB_END_TIME:
-			female.handGlobalPos[R] = opponent.pos + STAB_TARGET_POS
+			var dt = stabTimer - (STAB_START_TIME + STAB_STAB_TIME)
+			var amt = dt/STAB_END_TIME
+			female.handGlobalPos[R] = (1-amt)*(opponent.pos + STAB_TARGET_POS) + amt*female.pos
 		else:
 			isStabbing = false
 	else:

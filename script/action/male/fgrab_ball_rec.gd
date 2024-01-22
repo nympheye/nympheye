@@ -147,7 +147,7 @@ func perform(time, delta):
 		male.pen1.set_rotation(max(PEN_ROTATION, male.pen1.get_rotation()))
 	
 	if !ball.isSevered:
-		var moveRate = 1.0 + max(0, (male.pos.x - targetX) - 4)/15
+		var moveRate = 1.0 + max(0, (male.pos.x - targetX) - 4)/12
 		male.approachTargetPosX(delta*moveRate, targetX)
 	
 	male.walkThresh(delta, 50)

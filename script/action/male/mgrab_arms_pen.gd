@@ -14,7 +14,7 @@ const PEN_CONTACT_ANG = 70*PI/180
 const PEN_PENIS_ANG = -145*PI/180
 const PEN_DEPTH = 3
 const SHIFT_DELAY = 0.3
-const DRIFT_RAND_CONST = 90.0
+const DRIFT_RAND_CONST = 85.0
 const DRIFT_SPRING_CONST = 1.9
 const DRIFT_DAMP_CONST = 1.7
 
@@ -257,4 +257,5 @@ func stop():
 	male.targetGlobalHandPos= [null, null]
 	male.setHandRMode(MConst.HANDR_OPEN)
 	male.setIsBack(false)
+	male.isIgnoringMapLimit = false
 	male.pos.x += 30

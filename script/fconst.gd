@@ -15,3 +15,4 @@ const HANDR_KNIFE = 4
 const WEAPON_KNIFE = 0
 const WEAPON_CAST = 1
 const WEAPON_NONE = 2
+const WEAPON_RANDOM = 3

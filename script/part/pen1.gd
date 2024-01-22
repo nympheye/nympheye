@@ -110,4 +110,5 @@ func cutHead():
 
 
 func getScale(erect):
-	return PEN_SCALE*Vector2(male.options.msoftScale + 1.68*male.options.mhardScale*erect, male.options.msoftScale + 0.16*male.options.mhardScale*erect)
+	return PEN_SCALE*Vector2(male.options.msoftScale + 1.68*male.options.mhardScale*erect, \
+							male.options.mpenWidth*(male.options.msoftScale + 0.16*male.options.mhardScale*erect))

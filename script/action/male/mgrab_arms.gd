@@ -70,7 +70,7 @@ func perform(time, delta):
 	if isGrab[L] && isGrab[R]:
 		grabTime += delta
 	
-	if grabTime <= 0 && time > 0.7:
+	if (grabTime <= 0 && time > 0.7) || opponent.isTurn:
 		done = true
 		return
 	
@@ -110,6 +110,7 @@ func perform(time, delta):
 				if isGrab[other]:
 					male.tire(0.5*STAMINA)
 					male.autoArmRUp = false
+					male.isIgnoringMapLimit = true
 				else: 
 					if !opponent.perform(MGrabArmsRec.new(opponent)):
 						terminate()

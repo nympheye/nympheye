@@ -84,7 +84,7 @@ func _ready():
 
 func updateValid():
 	var noAction = human.action == null
-	var opponentAlive = human.opponent.getHealth() > 0
+	var opponentAlive = human.opponent.isActive
 	var isDown = human.isDown()
 	var isUp = human.isUp()
 	
@@ -116,7 +116,7 @@ func updateValid():
 
 
 func isReady(type):
-	var opponentAlive = human.opponent.getHealth() > 0
+	var opponentAlive = human.opponent.isActive
 	
 	if type == PASS:
 		return true

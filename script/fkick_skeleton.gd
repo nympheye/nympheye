@@ -19,6 +19,7 @@ var thighRLen
 var calfRLen
 var legLAng0
 var hipAng0
+var breastPos0
 
 func _ready():
 	footL = get_node("FootL")
@@ -37,6 +38,10 @@ func _ready():
 	calfRLen = toeR.transform.origin.length()
 	legLAng0 = thighL.get_rotation()
 	hipAng0 = hip.get_rotation()
+	breastPos0 = breast.position
+	
+	var options = get_node("/root/Options")
+	breast.set_scale(options.fbreastScale*Vector2.ONE)
 
 
 func setConfig(footRPos, legLAng, hipAng, thighScale, calfScale):
@@ -59,4 +64,7 @@ func setConfig(footRPos, legLAng, hipAng, thighScale, calfScale):
 	calfTrans = calfTrans.scaled(Vector2(calfScale, 1.0)).rotated(calfAng)
 	calfTrans.origin = calfR.transform.origin
 	calfR.transform = calfTrans
-	
+
+
+func setBreastPos(pos):
+	breast.position = breastPos0 + pos*sqrt(breast.scale.x)

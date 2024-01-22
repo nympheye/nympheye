@@ -54,6 +54,11 @@ func _ready():
 	head.scale = HEAD_SCALE
 	
 	groin = hip.get_node("Groin")
+	
+	var options = get_node("/root/Options")
+	var groinMove = 1 - max(0, options.msoftScale*options.mpenWidth)
+	groin.position += groinMove*Vector2(10.0, 20.0)
+	
 	footLRun = calf[L].get_node("FootL_run")
 	toeLRun = footLRun.get_node("ToeL_run")
 	bicepL = arm[L].get_node("BicepL")
@@ -209,7 +214,7 @@ func placeBackArms():
 
 func setLayPenPos(ang1, ang2, offset2, scale1, scale2):
 	scale1 *= human.options.msoftScale
-	scale2 *= human.options.msoftScale
+	scale1.y *= human.options.mpenWidth
 	
 	layPen1.set_rotation(baseLayPen1Ang + ang1)
 	layPen1.set_scale(scale1)

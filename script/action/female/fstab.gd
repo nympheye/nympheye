@@ -8,10 +8,10 @@ func get_class():
 const AB = 0
 const ARMR = 1
 
-const LEN = 0.6
-const STARTLEN = 0.45*LEN
-const STABLEN = 0.15*LEN
-const ENDLEN = 0.35*LEN
+const STARTLEN = 0.27
+const STABLEN = 0.07
+const ENDLEN = 0.21
+const LEN = STARTLEN + STABLEN + ENDLEN
 
 const STAMINA = 0.25
 const MAXDIST = 395
@@ -88,7 +88,6 @@ func perform(time, delta):
 	var hipShift = Vector2(0, 0)
 	var bodyAng = 0
 	var offhandShift = Vector2(0, 0)
-	var handAng = 0
 	
 	if time < STARTLEN:
 		var ratio = time/STARTLEN
@@ -97,7 +96,7 @@ func perform(time, delta):
 		hipShift = Vector2(hipDist*cosTerm, hipDrop*cosTerm)
 		offhandShift = Vector2(OFFHANDDIST*cosTerm, 0)
 		bodyAng = leanAng*cosTerm
-		handAng = cosTerm*HANDANG
+		female.handAngles[R] = cosTerm*HANDANG
 		if ratio > 0.3 && !sound1:
 			sound1 = true
 			female.game.swingSounds.playRandom()
@@ -118,7 +117,7 @@ func perform(time, delta):
 		hipShift = Vector2(hipDist, hipDrop)
 		offhandShift = Vector2(OFFHANDDIST, 0)
 		bodyAng = leanAng
-		handAng = HANDANG
+		female.handAngles[R] = HANDANG
 	else:
 		var dt = time - (STARTLEN + STABLEN)
 		var ratio = dt/ENDLEN
@@ -127,7 +126,8 @@ func perform(time, delta):
 		hipShift = Vector2(hipDist*cosTerm, hipDrop*cosTerm)
 		offhandShift = Vector2(OFFHANDDIST*cosTerm, 0)
 		bodyAng = leanAng*cosTerm
-		handAng = (1 - ratio)*HANDANG
+		if ratio > 0.4:
+			female.approachDefaultHandAng(delta, R)
 	
 	if female.isTurn:
 		offhandShift += TURNSHIFTL
@@ -137,9 +137,8 @@ func perform(time, delta):
 	female.handGlobalPos = [female.pos + offhandShift, female.slidePos + handShift]
 	female.skeleton.abdomen.set_rotation(bodyAng)
 	female.skeleton.neck.set_rotation(-bodyAng/2)
-	female.handAngles[R] = handAng
 
-	
+
 func stop():
 	female.setIsTurn(false)
 
@@ -151,7 +150,7 @@ func getTargetBasePos(targetType):
 		var separation = clamp(0.006*(opponent.handGlobalPos[R].x - female.pos.x - 560), 0, 1)
 		var armAng = opponent.skeleton.forearmAbsAngle[R]
 		var armVect = Vector2(cos(armAng), sin(armAng))
-		return opponent.handGlobalPos[R] + opponent.skeleton.handHipOffset[R] + (-30 + 100*separation)*armVect#Vector2(-30, 35)
+		return opponent.handGlobalPos[R] + opponent.skeleton.handHipOffset[R] + (-30 + 100*separation)*armVect
 
 
 func checkHit():

@@ -79,7 +79,7 @@ func perform(time, delta):
 	
 	male.targetHeight = -40*amt + 40*amt*amt*amt*amt
 	male.approachTargetHeight(4.0*delta)
-	male.limitArmExtents()
+	male.limitArmExtents(delta)
 	
 	male.footAngles = male.getFootAngles(male.skeleton.footPos)
 	

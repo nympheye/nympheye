@@ -90,7 +90,7 @@ func perform(time, delta):
 	
 	male.pos.y = -fkick.liftR + fkick.accelLift + \
 			35*ratio - (40 if fkick.type == fkick.FRONT else 50)*ratio*ratio*ratio*ratio
-	male.limitArmExtents()
+	male.limitArmExtents(delta)
 	male.footAngles = male.getFootAngles(male.skeleton.footPos)
 	
 	male.approachTargetHandPos(delta)

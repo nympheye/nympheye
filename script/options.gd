@@ -22,10 +22,13 @@ var masterVolume
 var mbottomless
 var mbottomColor
 var mcolor
+var meyeColor
 var msoftScale
 var mhardScale
+var mpenWidth
 var mballScale
 var mregenRateMult
+var mdamageMult
 
 var fweapon
 var fwrap
@@ -38,9 +41,12 @@ var fwrapColor
 var ftopColor
 var fbottomColor
 var fskinColor
+var feyeColor
 var fboltColor
 var fbreastScale
 var fregenRateMult
+var fphysicalDamageMult
+var fmoraleDamageMult
 
 
 func _init():
@@ -52,7 +58,7 @@ func _init():
 	keys = 0
 	filtered = true
 	shadersDisabled = false
-	fweapon = FConst.WEAPON_KNIFE
+	fweapon = FConst.WEAPON_RANDOM
 	
 	readConfig()
 	
@@ -76,10 +82,13 @@ func readConfig():
 	mbottomless = maleDict.get("bottomless")
 	mbottomColor = maleDict.get("bottom_color_hsv")
 	mcolor = maleDict.get("skin_color_hsv")
+	meyeColor = maleDict.get("eye_color_hsv")
 	msoftScale = maleDict.get("penis_soft_scale")
 	mhardScale = maleDict.get("penis_hard_scale")
+	mpenWidth = maleDict.get("penis_width")
 	mballScale = maleDict.get("balls_scale")
 	mregenRateMult = maleDict.get("stamina_regen_rate")
+	mdamageMult = maleDict.get("damage_received")
 	
 	var femaleDict = dict.get("female")
 	fwrap = femaleDict.get("hairwrap")
@@ -92,9 +101,12 @@ func readConfig():
 	ftopColor = femaleDict.get("top_color_hsv")
 	fbottomColor = femaleDict.get("bottom_color_hsv")
 	fskinColor = femaleDict.get("skin_color_hsv")
+	feyeColor = femaleDict.get("eye_color_hsv")
 	fboltColor = femaleDict.get("bolt_color_hsv")
 	fbreastScale = femaleDict.get("breast_scale")
 	fregenRateMult = femaleDict.get("stamina_regen_rate")
+	fphysicalDamageMult = femaleDict.get("physical_damage_received")
+	fmoraleDamageMult = femaleDict.get("morale_damage_received")
 	
 	var keyDict = dict.get("keys")
 	keyProfiles = []

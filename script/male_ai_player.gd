@@ -17,10 +17,10 @@ func _init(humanIn).(humanIn):
 	retreatSprintBias = -0.32
 	
 	maxRange[MaleCommandList.PUNCH] = 600
-	maxRange[MaleCommandList.STRIP_TOP] = 450
+	maxRange[MaleCommandList.STRIP_TOP] = 420
 	maxRange[MaleCommandList.STRIP_BOTTOM] = 380
 	maxRange[MaleCommandList.GRAB_ARMR] = 380
-	maxRange[MaleCommandList.GRAB_BOTH] = 450
+	maxRange[MaleCommandList.GRAB_BOTH] = 410
 	
 	impactDelay[MaleCommandList.PUNCH] = 0.2
 	impactDelay[MaleCommandList.STRIP_TOP] = 0.3
@@ -96,9 +96,9 @@ func getPriority(type, separation, retreatAmt):
 	elif type == MaleCommandList.GRAB_PEN_DOWN:
 		return 0.6 if abs(penDelta.x) > 12 && penDelta.y < 15 else (0.6 if penDelta.y < 0 else 0)
 	elif type == MaleCommandList.GRAB_PEN_LEFT:
-		return 0.5 + abs(penDelta.x)/100 if penDelta.x > 3 else 0
+		return 0.5 + abs(penDelta.x)/20 if penDelta.x > 3 else 0
 	elif type == MaleCommandList.GRAB_PEN_RIGHT:
-		return 0.5 + abs(penDelta.x)/100 if penDelta.x < -3 else 0
+		return 0.5 + abs(penDelta.x)/20 if penDelta.x < -3 else 0
 	elif type == MaleCommandList.GRAB_PEN_STOP:
 		var lowHealthness = max(0, (0.15 - opponent.getHealth())/0.15)
 		var opponentStaminaAmt = 2*(opponent.stamina/MGrabArmsRec.KICK_STAMINA - 0.5)

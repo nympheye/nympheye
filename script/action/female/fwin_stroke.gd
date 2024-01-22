@@ -165,7 +165,10 @@ func perform(time, delta):
 	
 
 static func getPen1Scale(erect, human):
-	return human.options.msoftScale*Vector2(1 + 1.55*pow(erect, 1.5), 1 + 0.20*erect)
+	var scale = human.options.msoftScale*Vector2.ONE + \
+				human.options.mhardScale*Vector2(1.55*pow(erect, 1.5), 0.20*erect)
+	scale.y *= human.options.mpenWidth
+	return scale
 
 static func getPen2Scale(erect, mlose):
 	return Vector2(1 + 0.5*erect + 0.07*mlose.pulsation, 1 + 0.2*erect + 0.08*mlose.pulsation)

@@ -54,6 +54,7 @@ func perform(time, delta):
 	if subact < 0:
 		female.regen(0.35*delta)
 		female.approachTargetHeight(0.6*delta)
+		female.approachDefaultHandAngs(delta)
 	elif subact == GRAB:
 		grab(subactTime, delta)
 

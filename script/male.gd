@@ -33,6 +33,7 @@ var tearPoly : Polygon2D
 var tearBackPoly : Polygon2D
 var grabCoverPoly : Polygon2D
 var clothPolys
+var irisPoly : Polygon2D
 
 var hitSounds
 var loseSounds
@@ -125,7 +126,7 @@ func _init().(false):
 	footRunAccel = 23*walkAccel
 	minRetract = 0
 	maxRetract = 1
-	minStaminaRegen = 0.62
+	minStaminaRegen = 0.60
 	staminaRegenRate = 0.17
 
 
@@ -139,6 +140,7 @@ func _ready():
 	tear = skeleton.head.get_node("Tear")
 	tearPoly = get_node("polygons/Head/Tear")
 	tearBackPoly = get_node("polygons/Head/Tear_back")
+	irisPoly = get_node("polygons/Head/Iris")
 	
 	clothPolys = []
 	clothPolys.append(get_node("polygons/Body/ClothF"))
@@ -163,7 +165,7 @@ func _ready():
 	gui = game.get_node("CanvasLayer/MGui")
 	gui.initialize(self)
 	
-	pen1 = skeleton.hip.get_node("Groin/Penis1")
+	pen1 = skeleton.groin.get_node("Penis1")
 	pen2 = pen1.get_node("Penis2")
 	ball = [skeleton.hip.get_node("BallL"), skeleton.hip.get_node("BallR")]
 	
@@ -208,6 +210,8 @@ func _ready():
 		var origAlpha = p.color.a
 		p.color = skinColor
 		p.color.a = origAlpha
+	
+	irisPoly.color = Color.from_hsv(options.meyeColor[0], options.meyeColor[1], options.meyeColor[2])
 	
 	var skinPolys = []
 	skinPolys.append(owner.get_node("Head/polygons/Head"))
@@ -358,9 +362,13 @@ func approachTargetRetract(delta):
 	ball[R].setRetract(retract)
 
 
-func limitArmExtents():
-	handGlobalPos[L].y = min(handGlobalPos[L].y, pos.y + 90)
-	handGlobalPos[R].y = min(handGlobalPos[R].y, pos.y + 77)
+func limitArmExtents(delta):
+	for i in [L,R]:
+		var reachVect = skeleton.handShoulderVect[i]
+		var maxReach = 0.95*(skeleton.armLen[i] + skeleton.forearmLen[i])
+		var overreach = reachVect.length()/maxReach
+		if overreach > 1:
+			handGlobalPos[i] -= 10.0*(overreach - 1)*delta*reachVect
 
 
 func getReactionTimeMult():
@@ -377,8 +385,6 @@ func cutPenSide():
 	recGenitalDamage(0.2)
 	cutCloth()
 	pen1.cutSide()
-#	if options.goreEnabled:
-#		get_node("polygons/Body/Penis/Cut").set_visible(true)
 
 
 func cutPenHead():
@@ -540,11 +546,13 @@ func getHealth():
 
 
 func recDamage(damage):
+	damage *= options.mdamageMult
 	health -= damage
 	recentDamageReceived += damage
 
 
 func recGenitalDamage(damage):
+	damage *= options.mdamageMult
 	recentDamageReceived += damage
 	recentDamageDelivered -= 0.5*damage
 	if getHealth() < 0:

@@ -545,7 +545,8 @@ func landFoot(index):
 func pushAway(delta, absPosX):
 	var diff = pos.x - absPosX
 	var sgn = 1 if direction else -1
-	if diff*sgn > 0:
+	var diffMag = diff*sgn
+	if diffMag > 0:
 		pushAwayCounter = 2
 		var force = min(1, abs(diff)/120.0)
 		var minVel = force*500.0
@@ -554,10 +555,11 @@ func pushAway(delta, absPosX):
 		pos.x += force*vel.x*delta
 		vel.x -= sgn*delta*accelRate
 		var ang = skeleton.abdomen.get_rotation()
+		var angLim = -sgn*min(0.38, 0.0017*diffMag)
 		if direction:
-			skeleton.abdomen.set_rotation(min(ang, -0.0017*diff))
+			skeleton.abdomen.set_rotation(min(ang, angLim))
 		else:
-			skeleton.abdomen.set_rotation(max(ang, -0.0017*diff))
+			skeleton.abdomen.set_rotation(max(ang, angLim))
 
 
 func approachTargetHandPos(delta):

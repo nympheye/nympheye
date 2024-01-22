@@ -9,7 +9,7 @@ const PULL_TIME = 0.6
 const HOLD_TIME = 0.05
 const CUT_TIME = 2.0
 const CUT2_TIME = 1.0
-const CUT_DURATION = 0.3
+const CUT_DURATION = 0.2
 const PULL_SHIFT = Vector2(36, -14)
 const PEN_PULL_SHIFT = PULL_SHIFT + Vector2(-7, -2)
 const CUT_START_POS = Vector2(-15, -5)
@@ -23,7 +23,6 @@ const EXTEND_SHIFT = Vector2(5, -5)
 const ROT_HANDL_SHIFT = Vector2(0, 0)
 const TORSO_ROT_CUT = -0.30
 const TORSO_ROT_END = -0.17
-#const PULL_POS = FWinGrab.HOLD_POS + PULL_SHIFT
 
 
 var opponent
