@@ -710,7 +710,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="bbff"
+config/name="neye"
 run/main_scene="res://scene/menu.tscn"
 config/icon="res://icon.ico"
 

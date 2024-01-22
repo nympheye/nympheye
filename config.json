@@ -10,10 +10,13 @@
 		"bottomless":false,
 		"bottom_color_hsv":[0.0, 0.0, 1.0],
 		"skin_color_hsv":[0.0, 0.0, 1.0],
+		"eye_color_hsv":[0.0, 0.0, 1.0],
 		"penis_soft_scale":1.0,
 		"penis_hard_scale":1.0,
+		"penis_width":1.0,
 		"balls_scale":1.0,
 		"stamina_regen_rate":1.0,
+		"damage_received":1.0,
 	},
 	
 	"female":{
@@ -27,9 +30,12 @@
 		"top_color_hsv":[0.0, 0.0, 1.0],
 		"bottom_color_hsv":[0.0, 0.0, 1.0],
 		"skin_color_hsv":[0.0, 0.0, 1.0],
+		"eye_color_hsv":[0.0, 0.0, 1.0],
 		"bolt_color_hsv":[0.0, 0.0, 1.0],
 		"breast_scale":1.0,
 		"stamina_regen_rate":1.0,
+		"physical_damage_received":1.0,
+		"morale_damage_received":1.0,
 	},
 	
 	"keys":{
